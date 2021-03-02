@@ -1,0 +1,54 @@
+<html lang='en'>
+
+<head>
+  <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+  <!-- Custom styling -->
+  <link rel='stylesheet' href='css/styles.css'>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <!-- Custom font -->
+  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Just+Another+Hand&display=swap'>
+
+  <!-- Tensorflow.js ref -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js"></script>
+
+  <!-- Javascript Files -->
+  <script src='drawing.js'></script>
+
+</head>
+
+<body>
+
+  <div class='container'>
+
+    <h1 id='title'>MNIST Math</h1>
+
+    <h2 id='question'><span id='n1'>3</span> + <span id='n2'>2</span> = </h2>
+
+    <canvas id="mnistCanvas" width="150px" height="150px"></canvas>
+
+  </div>
+
+  <div class='container'>
+    <button id='checkAnswer' class='btn' value='Check'>Check Answer</button>
+  </div>
+
+  <!-- Model Mounting -->
+  <script>
+    async function loadModel(){
+      const model = await tf.loadGraphModel('TFJS/model.json');
+      console.log(model);
+    }
+
+    loadModel();
+    prepareCanvas();
+
+    document.getElementById('checkAnswer').addEventListener('click', function (){
+      clearCanvas();
+    });
+
+  </script>
+
+</body>
+
+</html>
