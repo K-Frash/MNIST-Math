@@ -1,8 +1,11 @@
 // Any pixels above this threshold will be set to 255
 const COLOR_THRESHOLD = 175;
 
+// The trained MNIST Model
+var model;
+
 async function loadModel() {
-    const model = await tf.loadGraphModel('TFJS/model.json');
+    model = await tf.loadGraphModel('TFJS/model.json');
     console.log(model);
 }
 
@@ -22,6 +25,23 @@ function getBoundingRect(contours, width, height){
 
     let rect = new cv.Rect(min_x, min_y, max_x-min_x, max_y-min_y);
     return rect;
+}
+
+function getContourCentroids(contours) {
+    var m10 = 0.0;
+    var m01 = 0.0;
+    var m00 = 0.0;
+    for(let i = 0; i < contours.size(); ++i){
+        let cnt = contours.get(i);
+        const Moments = cv.moments(cnt, false);
+        m10 += Moments.m10;
+        m01 += Moments.m01;
+        m00 += Moments.m00;
+    }
+    const cx = m10 / m00;
+    const cy = m01 / m00;
+
+    return [cx, cy];
 }
 
 function predictImage() {
@@ -71,12 +91,11 @@ function predictImage() {
     const BLACK = new cv.Scalar(0,0,0,0);
     cv.copyMakeBorder(image, image, topPad, botPad, leftPad, rightPad, cv.BORDER_CONSTANT, BLACK);
 
-    // Find the Centroid (Center of Mass) of the image
-    cv.findContours(image, contours, hierarchy, cv.RETR_CCOMP, cv.CHAIN_APPROX_SIMPLE);
-    let cnt = contours.get(0);
-    const Moments = cv.moments(cnt, false);
-    const cx = Moments.m10 / Moments.m00;
-    const cy = Moments.m01 / Moments.m00;
+    // Find the Centroid (Center of Mass) of the image over all contours
+    cv.findContours(image, contours, hierarchy, cv.RETR_CCOMP, cv.CHAIN_APPROX_SIMPLE)
+    var centroid = getContourCentroids(contours);
+    const cx = centroid[0];
+    const cy = centroid[1];
 
     // Shift the image to the Center of Mass of the image
     const xShift = Math.round(image.cols/2.0 - cx);
@@ -93,6 +112,15 @@ function predictImage() {
         return item / 255.0;
     });
 
+    // Create a tensor of the preprocessed image data --> model accepts shape: (1,784) of dtype: float32
+    const X = tf.tensor([pixelData]);
+
+    // Predict the input!
+    const result = model.predict(X);
+    result.print();
+
+    console.log(tf.memory());
+
     // Testing
     const outputCanvas = document.createElement('CANVAS');
     cv.imshow(outputCanvas, image);
@@ -102,6 +130,9 @@ function predictImage() {
     image.delete();
     contours.delete();
     hierarchy.delete();
-    cnt.delete();
     M.delete();
+
+    // Tensors need to explicitly be cleaned up in tf.js
+    X.dispose();
+    result.dispose();
 }
