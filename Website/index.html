@@ -2,10 +2,13 @@
 
 <head>
   <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+
   <!-- Custom styling -->
   <link rel='stylesheet' href='css/styles.css'>
+
   <!-- Favicon -->
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+
   <!-- Custom font -->
   <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Just+Another+Hand&display=swap'>
 
@@ -14,6 +17,10 @@
 
   <!-- Javascript Files -->
   <script src='drawing.js'></script>
+  <script src='processing.js'></script>
+
+  <!-- Open CV -->
+  <script src='vendor/opencv.js'></script>
 
 </head>
 
@@ -35,15 +42,12 @@
 
   <!-- Model Mounting -->
   <script>
-    async function loadModel(){
-      const model = await tf.loadGraphModel('TFJS/model.json');
-      console.log(model);
-    }
 
     loadModel();
     prepareCanvas();
 
     document.getElementById('checkAnswer').addEventListener('click', function (){
+      predictImage();
       clearCanvas();
     });
 
