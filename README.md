@@ -6,7 +6,7 @@
   * [Roadmap](#roadmap)
 
 ## Overview
-![landingPage](https://user-images.githubusercontent.com/26447339/109899200-7d41c180-7c63-11eb-970c-61e02b04666c.PNG)
+![landingPage](https://user-images.githubusercontent.com/26447339/109901694-7c129380-7c67-11eb-8f30-9fd762ccfb29.PNG)
 
 Mnist Math is an educational application that determines if user drawn digits satisfy randomly generated arithmetic equations. The model was trained upon the [MNIST dataset](http://yann.lecun.com/exdb/mnist/) (provided through the keras API) leveraging Tensorflow for training, saving and serving the model. The trained model was then translated to Tensorflow.js through with the [tfjs converter](https://github.com/tensorflow/tfjs/tree/master/tfjs-converter) for usage with the web application.
 
