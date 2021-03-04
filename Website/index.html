@@ -16,8 +16,9 @@
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js"></script>
 
   <!-- Javascript Files -->
-  <script src='drawing.js'></script>
-  <script src='processing.js'></script>
+  <script src='scripts/drawing.js'></script>
+  <script src='scripts/processing.js'></script>
+  <script src='scripts/gameplay.js'></script>
 
   <!-- Open CV -->
   <script src='vendor/opencv.js'></script>
@@ -38,6 +39,11 @@
 
   <div class='container'>
     <button id='checkAnswer' class='btn' value='Check'>Check Answer</button>
+    <button id='wipeBoard' class='btn' value='Check'>Wipe Board</button>
+  </div>
+
+  <div class='clientResponder'>
+    <h3 id='predResponse'><span id='n3'>Plug in an Answer to See Your Garden Grow!</span></h3>
   </div>
 
   <!-- Model Mounting -->
@@ -45,9 +51,15 @@
 
     loadModel();
     prepareCanvas();
+    nextQuestion();
 
     document.getElementById('checkAnswer').addEventListener('click', function (){
-      predictImage();
+      verifyAnswer();
+      clearCanvas();
+      nextQuestion();
+    });
+
+    document.getElementById('wipeBoard').addEventListener('click', function (){
       clearCanvas();
     });
 

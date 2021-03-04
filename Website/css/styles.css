@@ -1,6 +1,6 @@
 body {
 font-family: 'Just Another Hand', cursive;
-background-color: #242E6B;
+background-color: #073b4c;
 width: 100%;
 background-position: top;
 background-repeat: no-repeat;
@@ -12,20 +12,30 @@ h1, h2{
   font-size: 150px;
 }
 
+h3{
+  font-weight: 300;
+  font-size: 75px;
+}
+
 #title{
-  color: #f87d85;
+  color: #ffd166;
   line-height: 50px;
 }
 
 #question {
   display: inline;
-  color: #FFFFFF;
+  color: #f4f1de;
 }
 
 #mnistCanvas{
   vertical-align: top;
   display: inline;
-  border: 5px solid #FFFFFF;
+  border: 5px solid #f4f1de;
+}
+
+#predResponse{
+  display: inline;
+  color: #118ab2;
 }
 
 .container {
@@ -33,13 +43,27 @@ h1, h2{
   margin: 50px auto;
 }
 
+.clientResponder{
+	background-color:#f4f1de;
+	border-radius:50px;
+  margin: auto;
+  border-width: 10;
+  max-width: 1100px;
+  line-height: 90px;
+	font-family:'Just Another Hand', cursive;
+	font-size:70px;
+  letter-spacing: 3px;
+  text-align: center;
+	text-decoration:none;
+}
+
 .btn {
   margin: 10px;
-	background-color:#FFFFFF;
+	background-color:#f4f1de;
 	border-radius:20px;
   border-width: 0;
 	cursor:pointer;
-	color:#242E6B;
+	color:#073b4c;
   line-height: 70px;
 	font-family:'Just Another Hand', cursive;
 	font-size:70px;
@@ -50,6 +74,6 @@ h1, h2{
 }
 
 .btn:hover{
-  background-color: #242E6B;
-  color: #f87d85;
+  background-color: #073b4c;
+  color: #ffd166;
 }

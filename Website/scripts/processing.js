@@ -59,6 +59,14 @@ function predictImage() {
     let hierarchy = new cv.Mat();
     cv.findContours(image, contours, hierarchy, cv.RETR_CCOMP, cv.CHAIN_APPROX_SIMPLE);
 
+    // Early Termination if the user hasn't drawn on the board
+    if(contours.size() == 0){
+        image.delete();
+        contours.delete();
+        hierarchy.delete();
+        return -1;
+    }
+
     // Calculate bounding rectangle around drawn image and crop image to this rectangle
     // (Identically to how the origional MNIST digits were processed for the MNIST model)
     let rectBound = getBoundingRect(contours, width, height);
@@ -117,14 +125,14 @@ function predictImage() {
 
     // Predict the input!
     const result = model.predict(X);
-    result.print();
 
-    console.log(tf.memory());
+    // Get prediction from tensor
+    const output = result.dataSync()[0];
 
     // Testing
-    const outputCanvas = document.createElement('CANVAS');
-    cv.imshow(outputCanvas, image);
-    document.body.appendChild(outputCanvas);
+    //const outputCanvas = document.createElement('CANVAS');
+    //cv.imshow(outputCanvas, image);
+    //document.body.appendChild(outputCanvas);
 
     // Cleanup
     image.delete();
@@ -135,4 +143,6 @@ function predictImage() {
     // Tensors need to explicitly be cleaned up in tf.js
     X.dispose();
     result.dispose();
+
+    return output;
 }

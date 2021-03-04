@@ -23,25 +23,25 @@ function prepareCanvas() {
     var isPainting = false;
 
     // Desktop Events
-    document.addEventListener('mousedown', function (event) {
+    canvas.addEventListener('mousedown', function (event) {
         isPainting = true;
-        currentX = event.clientX - canvas.offsetLeft;
-        currentY = event.clientY - canvas.offsetTop;
+        currentX = event.pageX - canvas.offsetLeft;
+        currentY = event.pageY - canvas.offsetTop;
     });
 
-    document.addEventListener('mousemove', function (event) {
+    canvas.addEventListener('mousemove', function (event) {
 
         if (isPainting) {
             previousX = currentX;
             previousY = currentY;
-            currentX = event.clientX - canvas.offsetLeft;
-            currentY = event.clientY - canvas.offsetTop;
+            currentX = event.pageX - canvas.offsetLeft;
+            currentY = event.pageY - canvas.offsetTop;
 
             draw();
         }
     });
 
-    document.addEventListener('mouseup', function (event) {
+    canvas.addEventListener('mouseup', function (event) {
         isPainting = false;
     });
 
@@ -52,8 +52,8 @@ function prepareCanvas() {
     // Touch Events
     canvas.addEventListener('touchstart', function (event) {
         isPainting = true;
-        currentX = event.touches[0].clientX - canvas.offsetLeft;
-        currentY = event.touches[0].clientY - canvas.offsetTop;
+        currentX = event.touches[0].pageX - canvas.offsetLeft;
+        currentY = event.touches[0].pageY - canvas.offsetTop;
     });
 
     canvas.addEventListener('touchmove', function (event) {
@@ -61,8 +61,8 @@ function prepareCanvas() {
         if (isPainting) {
             previousX = currentX;
             previousY = currentY;
-            currentX = event.touches[0].clientX - canvas.offsetLeft;
-            currentY = event.touches[0].clientY - canvas.offsetTop;
+            currentX = event.touches[0].pageX - canvas.offsetLeft;
+            currentY = event.touches[0].pageY - canvas.offsetTop;
 
             draw();
         }
