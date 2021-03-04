@@ -1,5 +1,5 @@
 # MNIST Math
-
+Interactive demo can be found here: https://k-frash.github.io/MNIST-Math/
 ## Table of Contents
   * [Overview](#overview)
   * [Toolkit](#toolkit)
