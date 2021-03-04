@@ -18,7 +18,10 @@ function nextQuestion(){
 function verifyAnswer(){
     const prediction = predictImage();
 
-    if(prediction == answer){
+    if(prediction == -1){
+        document.getElementById('n3').innerHTML = `I Couldn't Recognize an Answer, Try Again!`;
+        return false;
+    } else if(prediction == answer){
         score++;
         backgroundImages.push(`url('images/background${score % 6}.svg')`);
         document.body.style.backgroundImage = backgroundImages;
@@ -29,4 +32,6 @@ function verifyAnswer(){
         document.body.style.backgroundImage = backgroundImages;
         document.getElementById('n3').innerHTML= `Your Answer of <span style="color:${predictCol}"> ${prediction}</span> was Incorrect, <span style="color:${incorrectCol}"> Your Garden Wilts!</span>`;
     }
+
+    return true;
 }

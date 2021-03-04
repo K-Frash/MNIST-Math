@@ -54,9 +54,11 @@
     nextQuestion();
 
     document.getElementById('checkAnswer').addEventListener('click', function (){
-      verifyAnswer();
-      clearCanvas();
-      nextQuestion();
+      const valid = verifyAnswer();
+      if(valid){
+        clearCanvas();
+        nextQuestion();
+      }
     });
 
     document.getElementById('wipeBoard').addEventListener('click', function (){

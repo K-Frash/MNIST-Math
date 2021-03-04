@@ -5,7 +5,7 @@ const COLOR_THRESHOLD = 175;
 var model;
 
 async function loadModel() {
-    model = await tf.loadGraphModel('TFJS/model.json');
+    model = await tf.loadGraphModel('MNIST_Network/TFJS/model.json');
     console.log(model);
 }
 
